@@ -1,0 +1,1 @@
+#### formatter的FormatterRegistrar接口实现

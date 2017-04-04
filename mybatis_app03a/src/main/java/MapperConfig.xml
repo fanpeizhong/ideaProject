@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!--启用全局缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--启用自动生成字段值-->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--默认执行器。SIMPLE普通；REUSE复用预处理器；BATCH复用预处理及批量更新，当主键冲突时在事务提交时才报错。-->
+        <setting name="defaultExecutorType" value="REUSE"/>
+        <!--启用延迟加载（本初暂时禁用）-->
+        <setting name="lazyLoadingEnabled" value="false"/>
+        <!--设定超时时间-->
+        <setting name="defaultStatementTimeout" value="25000"/>
+        <!--字段名自动映射-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!--使用骆驼法映射：COL_A→colA-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <package name="pojo"/><!--扫描pojo下面所有bean，使用@Alias注解定义别名-->
+        <!--<typeAlias alias="role" type="com.fan.mybatis.po.Role"/>-->
+    </typeAliases>
+
+    <mappers>
+        <package name="com.fan.mybatis.dao"/>
+    </mappers>
+</configuration>

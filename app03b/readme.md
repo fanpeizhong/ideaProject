@@ -1,0 +1,1 @@
+#### 基于Spring MVC配置文件实现的控制器，使用viewResolver

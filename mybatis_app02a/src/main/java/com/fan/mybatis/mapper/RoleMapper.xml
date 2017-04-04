@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fan.mybatis.mapper.RoleMapper">
+    <resultMap id="roleResultMap" type="role">
+        <id column="ID" property="id"/>
+        <result column="ROLE_NAME" property="roleName"/>
+        <result column="NOTE" property="note"/>
+    </resultMap>
+
+    <sql id="sqlGetRoleSelect">
+        select id, role_name, note from t_role
+    </sql>
+    <sql id="sqlSelectRoleAndUser">
+        select b.role_id, a.role_name, a.note, b.id as userId, b.user_name
+          from t_role a join t_user b on a.id = b.role_id
+    </sql>
+
+    <!--SELECT-->
+    <select id="getRole" parameterType="Long" resultType="role">
+        <include refid="sqlGetRoleSelect"/>
+        where id = #{id}
+    </select>
+    <select id="getRoleByMap" parameterType="map" resultType="role">
+        <include refid="sqlGetRoleSelect"/>
+        where id = #{id}
+    </select>
+    <select id="getRoleByAnnotation" resultType="role">
+        <include refid="sqlGetRoleSelect"/>
+        where id = #{id}
+    </select>
+    <select id="getRoleByJavaBean"
+            parameterType="com.fan.mybatis.params.RoleParam"
+            resultMap="roleResultMap">
+        select * from t_role where id = #{id}
+    </select>
+    <!--SELECT-->
+    <!--SELECT USER AND ROLE-->
+    <select id="getUserAndRoleByUserId" parameterType="Long" resultType="roleUser">
+        <include refid="sqlSelectRoleAndUser"/>
+        where b.id = #{id}
+    </select>
+    <select id="getUserAndRoleByRoleId" parameterType="long" resultType="roleUser">
+        <include refid="sqlSelectRoleAndUser"/>
+        where a.id = #{id}
+    </select>
+    <!--SELECT IF-->
+    <select id="getUserIf" parameterType="user" resultType="user">
+        <bind name="pattern" value="'%' + _parameter.getUserName() + '%'"/><!--用于定义通配符-->
+        select * from t_user where 1=1
+        <if test="id > 0">
+            and id = #{id}
+        </if>
+        <if test="userName != null">
+            and user_name like #{pattern}
+        </if>
+    </select>
+    <!--SELECT CHOOSE-->
+    <select id="getUserChoose" parameterType="user" resultType="user">
+        <bind name="pattern" value="'%' + _parameter.getUserName() + '%'"/><!--用于定义通配符-->
+        select * from t_user where 1=1
+        <choose>
+            <when test="id > 0">
+            and id = #{id}
+            </when>
+            <when test="userName != null">
+            and user_name like #{pattern}
+            </when>
+        </choose>
+    </select>
+    <!--SELECT WHERE-->
+    <select id="getUserWhere" parameterType="user" resultType="user">
+        <bind name="pattern" value="'%' + _parameter.getUserName() + '%'"/><!--用于定义通配符-->
+        SELECT * FROM T_USER
+        <where>
+            <if test="id > 0">ID = #{id}</if>
+            <if test="userName != null">AND USER_NAME LIKE #{pattern}</if>
+        </where>
+    </select>
+    <!--SELECT FOREACH-->
+    <select id="getUserForeach" resultType="user">
+        select * from t_user where id in
+        <foreach collection="list" item="item" index="index" open="(" separator=", " close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--INSERT-->
+    <insert id="insertRole" parameterType="role">
+        insert into t_role(role_name, note) values(#{roleName}, #{note})
+    </insert>
+    <insert id="insertRoleByJavaBean" parameterType="role"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into t_role(role_name, note) values(#{roleName}, #{note})
+    </insert>
+    <!--INSERT-->
+
+    <!--UPDATE-->
+    <update id="updateRole" parameterType="role">
+        update t_role set role_name = #{roleName}, note = #{note} where id = #{id}
+    </update>
+    <!--UPDATE SET-->
+    <update id="updateUserSet" parameterType="user">
+        update t_user
+        <set>
+            <if test="userName != null">user_name = #{userName}</if>
+            <if test="roleId > 0">role_id = #{roleId}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--DELETE-->
+    <delete id="deleteRole" parameterType="Long">
+        delete from t_role where id = #{id}
+    </delete>
+</mapper>

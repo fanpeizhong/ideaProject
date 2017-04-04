@@ -1,0 +1,43 @@
+<component name="libraryTable">
+  <library name="Spring MVC" type="spring-mvc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/aopalliance-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/commons-logging-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.annotation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.ejb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.jms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.resource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.servlet.jsp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.servlet.jsp.jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/javax.transaction.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/jsp-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/jstl-api-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/jstl-impl-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-aop-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-aspects-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-beans-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-context-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-context-support-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-core-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-expression-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-instrument-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-instrument-tomcat-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-jdbc-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-jms-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-messaging-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-orm-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-oxm-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-test-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-tx-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-web-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-webmvc-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-webmvc-portlet-4.3.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../SpringMVC/spring-websocket-4.3.4.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--Spring MVC配置：扫描依赖注入包-->
+    <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="dao"/>
+    <context:component-scan base-package="service"/>
+
+    <!--MyBatis配置：定义配置文件-->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>/WEB-INF/config/db.properties</value>
+        </property>
+        <property name="fileEncoding" value="utf-8" />
+    </bean>
+
+    <!--Spring MVC配置：定义静态资源访问-->
+    <mvc:resources mapping="/css/**" location="/css/"/>
+
+    <!--Spring MVC配置：定义日期转换器-->
+    <mvc:annotation-driven conversion-service="conversionService"/>
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="formatter.DateFormatter">
+                    <constructor-arg type="java.lang.String" value="yyyyMMdd"/>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <!--Spring MVC配置：定义视图解析器-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--MyBatis配置：数据源配置-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!--MyBatis配置：事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--MyBatis配置：使用注解控制事务（另一种方式是通过在本XML文件进行配置控制事务）-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+    <!--MyBatis配置：sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--configLocation属性指定mybatis的核心配置文件-->
+        <property name="configLocation" value="classpath:MapperConfig.xml"/><!--指向mapper配置文件-->
+    </bean>
+
+    <!--MyBatis配置：sqlSessionTemplate-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+        <constructor-arg index="0" ref="sqlSessionFactory"/><!--指向sqlSessionFactory-->
+    </bean>
+
+    <!--MyBatis配置：采用扫描注解方式创建mapper bean(dao)-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="dao"/><!--定义dao所在目录-->
+        <property name="sqlSessionTemplateBeanName" value="sqlSessionTemplate"/><!--指向sqlSessionTemplate-->
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/><!--定义使用的注解名称：@Repository-->
+    </bean>
+</beans>
